@@ -2,7 +2,12 @@ const express = require('express');
 const router = express.Router();
 const uuid = require('uuid');
 
-const items = {};
+const items = {
+    'D0DF4DCB-6720-45BB-86DA-4D4286C2C04B': {
+        id: 'D0DF4DCB-6720-45BB-86DA-4D4286C2C04B',
+        shoppingItem: 'Mugs'
+    }
+};
 /* GET items listing. */
 router.get('/', (req, res) => {
     res.json(items);
