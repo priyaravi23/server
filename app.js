@@ -1,15 +1,18 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const uuid = require('uuid');
 const cors = require('cors');
 
-// var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
+// const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const todosRouter = require('./routes/todos');
+const entitiesRouter = require('./routes/entities');
+const itemsRouter = require('./routes/items');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,41 +27,11 @@ app.use(cors());
 
 // write routes for user here
 
-const users = {};
 
-app.get('/users', (req, res) => {
-    res.json(users);
-});
-
-app.post('/users', (req, res) => {
-    console.log('Received a POST request ... ');
-    const newUser = {
-        ...req.body,
-        id: uuid.v4()
-    };
-    users[newUser.id] = newUser;
-    res.json({
-        ...newUser
-    });
-});
-
-app.delete('/users/:id', (req, res) => {
-    const {id} = req.params;
-
-    const user = {
-        ...users[id]
-    };
-    delete users[id];
-    res.json(user);
-});
-
-app.put('/users/:id', (req, res) => {
-    const user = {
-        ...req.body
-    };
-    users[user.id] = user;
-    res.json(user);
-});
+app.use('/users', usersRouter);
+app.use('/todos', todosRouter);
+app.use('/entities', entitiesRouter);
+app.use('/items', itemsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

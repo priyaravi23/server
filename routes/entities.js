@@ -1,43 +1,41 @@
 const express = require('express');
 const router = express.Router();
-const uuid = require('uuid');
-
-const users = {};
-/* GET users listing. */
+const entities = {};
+/* GET entities listing. */
 router.get('/', (req, res) => {
-  res.json(users);
+  res.json(entities);
 });
 
 router.post('/', (req, res) => {
   console.log('Received a POST request ... ');
-  const newUser = {
+  const newEntity = {
     ...req.body,
     id: uuid.v4()
   };
-  users[newUser.id] = newUser;
+  entities[newEntity.id] = newEntity;
   res.json({
-    ...newUser
+    ...newEntity
   });
 });
 
 router.delete('/:id', (req, res) => {
   const {id} = req.params;
 
-  const user = {
-    ...users[id]
+  const entitity = {
+    ...entities[id]
   };
-  delete users[id];
-  res.json(user);
+  delete entities[id];
+  res.json(entitity);
 });
 
 router.put('/:id', (req, res) => {
   const {id} = req.params;
-  const user = {
+  const entitity = {
     ...req.body,
     id: id
   };
-  users[user.id] = user;
-  res.json(user);
+  entities[entitity.id] = entitity;
+  res.json(entitity);
 });
 
 module.exports = router;
