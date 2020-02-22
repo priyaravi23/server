@@ -53,10 +53,8 @@ app.delete('/users/:id', (req, res) => {
 });
 
 app.put('/users/:id', (req, res) => {
-    const {id} = req.params;
     const user = {
-        ...req.body,
-        id: id
+        ...req.body
     };
     users[user.id] = user;
     res.json(user);
