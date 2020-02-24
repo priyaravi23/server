@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
     id: uuid.v4()
   };
   todos[newTodo.id] = newTodo;
-  res.json({
+  res.status(201).json({
     ...newTodo
   });
 });
